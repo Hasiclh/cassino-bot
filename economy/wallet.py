@@ -29,6 +29,7 @@ def can_use_daily(user_id):
         finally:
             conn.close()
     return False
+#
 
 # Atualiza a data do último daily e adiciona o dinheiro
 def use_daily(user_id, amount):

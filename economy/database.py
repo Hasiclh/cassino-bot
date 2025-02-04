@@ -1,6 +1,8 @@
 import sqlite3
 from sqlite3 import Error
 
+
+#
 # Cria a conexão com o banco de dados
 def create_connection():
     conn = None
