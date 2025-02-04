@@ -7,9 +7,13 @@ from discord.ext import commands
 
 from games.jackpot import Jackpot
 from economy.wallet import check_balance
+from economy.database import create_table
 
 # Carrega as variáveis de ambiente do arquivo .env
 load_dotenv()
+
+# Cria a tabela wallets no banco de dados (se não existir)
+create_table()
 
 # Configurações do bot
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -20,7 +24,7 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 # Inicializa o bot
 intents = discord.Intents.default()
 intents.message_content = True
-bot = commands.Bot(command_prefix="!", intents=intents)
+bot = commands.Bot(command_prefix="!", case_insensitive=True, intents=intents)
 
 # Inicializa os jogos
 jackpot = Jackpot()
