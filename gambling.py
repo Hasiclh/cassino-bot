@@ -38,6 +38,15 @@ async def play_jackpot(ctx):
 async def saldo(ctx):
     balance = check_balance(ctx.author.id)
     await ctx.send(f"💰 | {ctx.author.mention}, seu saldo é **{balance}** PAIZÕES.")
+    
+@bot.command(name='cassino-daily', help='Receba 1000 paizões diárias!')
+async def cassino_daily(ctx):
+    from economy.wallet import can_use_daily, use_daily
+    if can_use_daily(ctx.author.id):
+        use_daily(ctx.author.id, 1000)
+        await ctx.send(f"🎉 | {ctx.author.mention}, você recebeu **1000 paizões** diárias!")
+    else:
+        await ctx.send(f"⏳ | {ctx.author.mention}, você já usou o seu daily hoje. Volte amanhã!")
 
 @bot.event
 async def on_command_error(ctx, error):

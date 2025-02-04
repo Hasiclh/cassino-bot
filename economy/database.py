@@ -20,7 +20,8 @@ def create_table():
             cursor.execute('''
                 CREATE TABLE IF NOT EXISTS wallets (
                     user_id INTEGER PRIMARY KEY,
-                    balance INTEGER DEFAULT 0
+                    balance INTEGER DEFAULT 0,
+                    last_daily TEXT
                 )
             ''')
             conn.commit()
@@ -36,10 +37,10 @@ def add_money(user_id, amount):
         try:
             cursor = conn.cursor()
             cursor.execute('''
-                INSERT INTO wallets (user_id, balance)
-                VALUES (?, ?)
+                INSERT INTO wallets (user_id, balance, last_daily)
+                VALUES (?, ?, ?)
                 ON CONFLICT(user_id) DO UPDATE SET balance = balance + ?
-            ''', (user_id, amount, amount))
+            ''', (user_id, amount, None, amount))
             conn.commit()
         except Error as e:
             print(e)
