@@ -5,6 +5,7 @@ import random
 from dotenv import load_dotenv
 from discord.ext import commands
 
+
 from games.jackpot import Jackpot
 from economy.wallet import check_balance
 from economy.database import create_table
