@@ -6,15 +6,25 @@ class Jackpot:
     def __init__(self):
 # Emojis para o caça-níquel
         self.emojis = ["🍒", "🍋", "🍊", "🍇", "🔔", "💎", "7️⃣"]
-        self.jackpot_emoji = "💎"
-        self.jackpot_reward = 1000
+        # Definicao do premio do diamente
+        self.diamond_emoji = "💎"
+        self.diamond_reward = 1000
+        
+        # Definicao do preimio 777
+        self.jackpot_emoji = "7️⃣"
+        self.jackpot_reward = 7777
+        
+        
         self.normal_reward = 100
         
     async def play(self, ctx):
         # Gera três emojis aleatórios
         result = [random.choice(self.emojis) for _ in range(3)]
     
-        if result[0] == result[1] == result[2] == self.jackpot_emoji:
+        if result[0] == result[1] == result[2] == self.diamond_emoji:
+            reward = self.diamond_reward
+            mensagem_vitoria = f"🎉 Só ganha quem joga! Parabéns, Você ganhou {reward} PAIZÕES! 🎉"
+        elif result[0] == result[1] == result[2]:
             reward = self.jackpot_reward
             mensagem_vitoria = f"🎉 **JACKPOT!** Você ganhou {reward} PAIZÕES! 🎉"
         elif result[0] == result[1] == result[2]:
