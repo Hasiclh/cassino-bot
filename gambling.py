@@ -33,12 +33,28 @@ jackpot = Jackpot()
 # Comando para jogar o caça-níquel
 @bot.command(name='jackpot', aliases=["777"] , help='help-jackpot')
 async def play_jackpot(ctx):
-    await jackpot.play(ctx)
-
+    from games.jackpot import Jackpot
+    from economy.wallet import get_balance, add_money
+    
+    # Verifica se a aposta está dentro dos limites
+    bet = 10 
+    
+    # Verifica se o usuário tem saldo suficiente
+    balance = get_balance(ctx.author.id)
+    if bet > balance:
+        await ctx.send(f"❌ Você não tem paizões suficientes. Seu saldo é **{balance}** paizões.")
+        return
+    
+    # Desconta a aposta do saldo do usuário
+    add_money(ctx.author.id, -bet)
+    
+    jackpot = Jackpot()
+    await jackpot.play(ctx, bet)
+    
 @bot.command(name='wallet', aliases=["wwl"], help='Verifica o saldo da sua carteira')
 async def saldo(ctx):
     balance = check_balance(ctx.author.id)
-    await ctx.send(f"💰 | {ctx.author.mention}, seu saldo é **{balance}** PAIZÕES.")
+    await ctx.send(f"💰 | {ctx.author.mention}, seu saldo é **{balance}** paizões.")
     
 @bot.command(name='cassino-daily', help='Receba 1000 paizões diárias!')
 async def cassino_daily(ctx):

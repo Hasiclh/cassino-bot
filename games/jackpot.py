@@ -14,25 +14,24 @@ class Jackpot:
         self.jackpot_emoji = "7️⃣"
         self.jackpot_reward = 7777
         
-        
         self.normal_reward = 100
         
-    async def play(self, ctx):
+    async def play(self, ctx, bet):
         # Gera três emojis aleatórios
         result = [random.choice(self.emojis) for _ in range(3)]
     
         if result[0] == result[1] == result[2] == self.diamond_emoji:
             reward = self.diamond_reward
-            mensagem_vitoria = f"🎉 Só ganha quem joga! Parabéns, Você ganhou {reward} PAIZÕES! 🎉"
+            victory_message = f"🎉 Só ganha quem joga! Parabéns, Você ganhou {reward} PAIZÕES! 🎉"
         elif result[0] == result[1] == result[2]:
             reward = self.jackpot_reward
-            mensagem_vitoria = f"🎉 **JACKPOT!** Você ganhou {reward} PAIZÕES! 🎉"
+            victory_message = f"🎉 **JACKPOT!** Você ganhou {reward} PAIZÕES! 🎉"
         elif result[0] == result[1] == result[2]:
             reward = self.normal_reward
-            mensagem_vitoria = f"🎉 Parabéns! Você ganhou {reward} PAIZÕES! 🎉"
+            victory_message = f"🎉 Parabéns! Você ganhou {reward} PAIZÕES! 🎉"
         else:
             reward = 0
-            mensagem_vitoria = "Tente novamente!"
+            victory_message = "Tente novamente!"
             
         # Adiciona a recompensa à carteira do usuário
         if reward > 0:
@@ -46,4 +45,4 @@ class Jackpot:
             f"---------------------------------\n"
         )
         # Envia o resultado
-        await ctx.send(mensagem_vitoria)
+        await ctx.send(victory_message)
